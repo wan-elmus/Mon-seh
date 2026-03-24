@@ -17,6 +17,7 @@
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
+  allowedDevOrigins: ['195.7.7.15'],
   turbopack: {
     root: '/root/sensei/Mon-seh',
   },
