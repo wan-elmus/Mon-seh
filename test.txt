@@ -1,0 +1,81 @@
+cami/
+├── app/
+│   ├── api/
+│   │   └── oracle/
+│   │       └── route.ts          # Gemini API endpoint (LLM logic)
+│   │
+│   ├── favicon.ico
+│   ├── globals.css              # Tailwind base + custom CSS vars
+│   ├── layout.tsx               # Root layout (fonts, metadata, theme)
+│   └── page.tsx                 # Main page (composes all sections)
+│
+├── components/
+│   ├── ui/                      # Reusable primitives (pure UI)
+│   │   ├── Button.tsx
+│   │   ├── GlassCard.tsx
+│   │   ├── Input.tsx
+│   │   ├── Modal.tsx
+│   │   └── Cursor.tsx           # Custom cursor
+│   │
+│   ├── sections/                # Page sections (feature-level)
+│   │   ├── Hero.tsx
+│   │   ├── UptimeDashboard.tsx
+│   │   ├── Timeline.tsx
+│   │   ├── Gallery.tsx
+│   │   ├── Oracle.tsx
+│   │   ├── PatchRequest.tsx
+│   │   ├── CycleSync.tsx        # Wrapper (dynamic import)
+│   │   └── Footer.tsx
+│   │
+│   ├── three/                   # 3D-specific logic isolated
+│   │   └── CycleGlobe.tsx       # React Three Fiber implementation
+│   │
+│   └── shared/                  # Cross-section components
+│       ├── SectionWrapper.tsx
+│       ├── Heading.tsx
+│       └── Container.tsx
+│
+├── hooks/                       # All stateful + logic hooks
+│   ├── useOracle.ts             # Chat state + API interaction
+│   ├── useUptime.ts             # Live relationship timer
+│   ├── useScrollProgress.ts     # Timeline animation logic
+│   ├── useCursor.ts             # Cursor interaction behavior
+│   └── useCommandPalette.ts     # Hidden command system
+│
+├── lib/
+│   ├── data/                    # SINGLE SOURCE OF TRUTH (editable)
+│   │   ├── gallery.ts           # Image metadata
+│   │   ├── timeline.ts          # Milestones
+│   │   ├── patch.ts             # Apology messages
+│   │   ├── cycle.ts             # Cycle logic config
+│   │   └── constants.ts         # Names, anniversary, etc.
+│   │
+│   ├── oracle.ts                # SYSTEM PROMPT (Gemini)
+│   ├── utils.ts                 # Helper functions
+│   ├── animations.ts            # Framer configs (optional but clean)
+│   └── config.ts                # App-wide config flags
+│
+├── public/                      # STATIC ASSETS (CRITICAL)
+│   ├── images/
+│   │   ├── hero/                # Hero images (1–2 max)
+│   │   ├── gallery/             # Main images (optimized)
+│   │   └── backgrounds/         # Blurred/ambient images
+│   │
+│   ├── icons/
+│   └── fonts/                  # If self-hosting
+│
+├── styles/                      # Optional (if scaling)
+│   └── variables.css            # Design tokens (colors, spacing)
+│
+├── types/                       # TypeScript types
+│   ├── index.ts
+│   ├── gallery.ts
+│   ├── timeline.ts
+│   └── oracle.ts
+│
+├── package.json
+├── tsconfig.json
+├── tailwind.config.ts
+├── next.config.ts
+└── postcss.config.mjs
+└── .env.local

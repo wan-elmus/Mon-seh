@@ -1,26 +1,224 @@
 @import "tailwindcss";
 
+/* ─── Google Fonts ─────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=JetBrains+Mono:wght@300;400;500&display=swap');
+
+/* ─── CSS Custom Properties ────────────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --font-cormorant: 'Cormorant Garamond', Georgia, serif;
+  --font-dm-sans: 'DM Sans', system-ui, sans-serif;
+  --font-jetbrains: 'JetBrains Mono', monospace;
+
+  /* Brand Colors */
+  --c-obsidian: #0A0A0A;
+  --c-charcoal: #111113;
+  --c-rose: #E8B4B8;
+  --c-rose-deep: #D4919A;
+  --c-gold: #E6C8A0;
+  --c-gold-deep: #D4AD7A;
+  --c-lavender: #C9B6E0;
+  --c-offwhite: #F5F5F7;
+  --c-silver: #A0A0A8;
+  --c-dim: #6B6B75;
+
+  /* Glass */
+  --glass-bg: rgba(20, 20, 25, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.07);
+  --glass-blur: 24px;
+
+  /* Easing */
+  --ease-spring: cubic-bezier(0.2, 0.9, 0.4, 1.1);
+  --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ─── Base Reset ────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-dm-sans);
+  background-color: #0A0A0A;
+  color: #F5F5F7;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* Hide cursor on touch devices */
+@media (pointer: coarse) {
+  body { cursor: auto; }
+}
+
+/* ─── Custom Scrollbar ──────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #0A0A0A; }
+::-webkit-scrollbar-thumb {
+  background: rgba(232, 180, 184, 0.3);
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(232, 180, 184, 0.5);
+}
+
+/* ─── Selection ─────────────────────────────────────────────── */
+::selection {
+  background: rgba(232, 180, 184, 0.25);
+  color: #F5F5F7;
+}
+
+/* ─── Glass Utility ─────────────────────────────────────────── */
+@layer components {
+  .glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+  }
+
+  .glass-hover {
+    transition: background 0.3s ease, border-color 0.3s ease;
+  }
+
+  .glass-hover:hover {
+    background: rgba(25, 25, 32, 0.7);
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+
+  /* Section spacing */
+  .section-pad {
+    padding-top: 7rem;
+    padding-bottom: 7rem;
+  }
+
+  @media (max-width: 768px) {
+    .section-pad {
+      padding-top: 4rem;
+      padding-bottom: 4rem;
+    }
+  }
+
+  /* Noise overlay */
+  .noise::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* Mono label */
+  .mono-label {
+    font-family: var(--font-jetbrains);
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    color: var(--c-dim);
+  }
+
+  /* Gradient text */
+  .text-gradient-rose {
+    background: linear-gradient(135deg, var(--c-rose) 0%, var(--c-gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-lav {
+    background: linear-gradient(135deg, var(--c-lavender) 0%, var(--c-rose) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+/* ─── Custom Cursor ─────────────────────────────────────────── */
+.custom-cursor {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  background: var(--c-rose);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10000;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: difference;
+  transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
+}
+
+.custom-cursor-ring {
+  position: fixed;
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(232, 180, 184, 0.4);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.12s var(--ease-smooth);
+}
+
+.cursor-expanded .custom-cursor {
+  width: 18px;
+  height: 18px;
+  opacity: 0.7;
+}
+
+/* ─── Focus Visible ─────────────────────────────────────────── */
+:focus-visible {
+  outline: 1px solid rgba(232, 180, 184, 0.5);
+  outline-offset: 3px;
+}
+
+/* ─── Section Divider ───────────────────────────────────────── */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+  margin: 0 auto;
+  max-width: 900px;
+}
+
+/* ─── Typing cursor ─────────────────────────────────────────── */
+.typing-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: var(--c-rose);
+  margin-left: 2px;
+  vertical-align: middle;
+  animation: cursorBlink 1s step-end infinite;
+}
+
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ─── Scanline (subtle) ─────────────────────────────────────── */
+@keyframes scan {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+/* ─── Smooth enter for sections ─────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.7s var(--ease-smooth) forwards;
+}
+
+/* ─── Counter digit flip ────────────────────────────────────── */
+.digit-flip {
+  display: inline-block;
+  transition: transform 0.2s ease, opacity 0.2s ease;
 }
