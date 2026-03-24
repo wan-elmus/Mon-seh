@@ -9,6 +9,7 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizeCss: true,
   },
+  devIndicators: false,
 }
 
 export default nextConfig

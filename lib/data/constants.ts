@@ -1,8 +1,6 @@
-// ─── EDIT THIS FILE ─────────────────────────────────────────
 // This is the single source of truth for all personal data.
-// Update anniversaryDate to your actual start date.
 
-export const ANNIVERSARY_DATE = new Date('2022-06-14T00:00:00') // ← CHANGE THIS
+export const ANNIVERSARY_DATE = new Date('2026-01-30T00:00:00')
 
 export const NAMES = [
   'My beautiful Princess',

@@ -1,4 +1,4 @@
-// ─── Gallery ────────────────────────────────────────────────
+// Gallery
 export type BentoSpan = 'square' | 'portrait' | 'landscape' | 'wide' | 'tall'
 
 export interface MemoryImage {
@@ -12,7 +12,7 @@ export interface MemoryImage {
   blurDataURL?: string
 }
 
-// ─── Timeline ───────────────────────────────────────────────
+// Timeline
 export interface Milestone {
   id: string
   date: string          // "Month YYYY"
@@ -24,7 +24,7 @@ export interface Milestone {
   imageSrc?: string
 }
 
-// ─── Oracle ─────────────────────────────────────────────────
+// Oracle
 export interface ChatMessage {
   id: string
   role: 'user' | 'assistant'
@@ -42,7 +42,7 @@ export interface OracleResponse {
   error?: string
 }
 
-// ─── Patch ──────────────────────────────────────────────────
+// Patch
 export type PatchErrorCode = '401' | '404' | '503' | 'custom'
 
 export interface PatchError {
@@ -52,31 +52,22 @@ export interface PatchError {
   response: string
 }
 
-// ─── Cycle ──────────────────────────────────────────────────
-export type CyclePhase = 'follicular' | 'ovulation' | 'luteal' | 'menstrual'
-
-export interface PhaseInfo {
-  name: CyclePhase
-  label: string
-  color: string
-  colorHex: string
-  days: number
-  tip: string
-  message: string
-  emoji: string
-}
-
-export interface CycleDay {
-  day: number
-  phase: CyclePhase
-  isToday: boolean
-}
-
-// ─── Uptime ─────────────────────────────────────────────────
+// Uptime
 export interface UptimeValues {
   days: number
   hours: number
   minutes: number
   seconds: number
   totalDays: number
+}
+
+// UI Utilities
+export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'outline'
+export type ButtonSize = 'sm' | 'md' | 'lg'
+
+// Section Props
+export interface SectionProps {
+  className?: string
+  id?: string
+  children?: React.ReactNode
 }
